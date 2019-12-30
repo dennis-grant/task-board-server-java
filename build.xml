@@ -1,0 +1,27 @@
+<project name="taskboard" default="compile" basedir=".">
+	<property name="src" location="src"/>
+	<property name="www_src" location="www"/>
+	<property name="deploy-dir" location="C:/websites/site2"/>
+	<property name="build" location="bin"/>
+	<property name="dist" location="dist"/>
+
+	<target name="clean">
+		<delete dir="${build}" includes="**/*" includeemptydirs="true"/>
+	</target>
+
+	<target name="compile">
+		<javac srcdir="${src}" destdir="${build}" classpath="${build}" source="1.7" target="1.7" listfiles="yes" debug="on">
+			<classpath>
+				<fileset dir="lib" includes="*.jar"/>
+			</classpath>
+		</javac>
+		<jar destfile="${dist}/taskboard.jar" basedir="${build}"/>
+		<copy file="${dist}/taskboard.jar" todir="${www_src}/taskboard/WEB-INF/lib"/>
+	</target>
+
+	<target name="deploy">
+		<copy todir="${deploy-dir}">
+			<fileset dir="${www_src}"/>
+		</copy>
+	</target>
+</project>
